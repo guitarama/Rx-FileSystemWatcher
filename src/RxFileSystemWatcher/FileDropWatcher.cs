@@ -18,7 +18,7 @@
 
 		public IObservable<FileDropped> Dropped { get; private set; }
 
-		public FileDropWatcher(string path, string filter)
+		public FileDropWatcher(string path, string filter, bool recursive = false)
 		{
 			_Path = path;
 			_Filter = filter;
@@ -26,6 +26,7 @@
 			{
 				w.Path = path;
 				w.Filter = filter;
+				w.IncludeSubdirectories = recursive;
 				// note: filtering on changes can help reduce excessive notifications, make sure to verify any changes with integration tests
 				w.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName;
 			});
